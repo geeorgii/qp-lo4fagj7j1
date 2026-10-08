@@ -1,0 +1,1070 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="referrer" content="no-referrer">
+<link rel="icon" href="data:,">
+<style>:root{color-scheme:light;padding-block:env(safe-area-inset-top,0px) env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head><body>
+<title>Questionnaire CHR &amp; HOME</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Literata:wght@500;700&display=swap">
+<style>
+/* Concept : un dossier en pages, une partie à la fois. Pierre de taille, vert Wallace, plaque émaillée bleue des rues de Paris. */
+:root {
+  --paper: #F1F4F1;
+  --card: #FFFFFF;
+  --ink: #16222A;
+  --muted: #4A5A62;
+  --line: #C6D0CB;
+  --accent: #1F5A47;
+  --accent-ink: #FFFFFF;
+  --accent-soft: #DCEBE3;
+  --plaque: #0F3D6E;
+  --plaque-ink: #FFFFFF;
+  --note: #F6EBCF;
+  --note-ink: #4F3600;
+  --font-display: "Literata", Georgia, "Times New Roman", serif;
+  --font-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0E1613; --card: #16211D; --ink: #E9EFEB; --muted: #A9B8B1; --line: #2D3C36;
+    --accent: #63C29A; --accent-ink: #0B1A14; --accent-soft: #1C3A2E;
+    --plaque: #1D5591; --plaque-ink: #FFFFFF; --note: #3A2F14; --note-ink: #F1DFA8;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0E1613; --card: #16211D; --ink: #E9EFEB; --muted: #A9B8B1; --line: #2D3C36;
+  --accent: #63C29A; --accent-ink: #0B1A14; --accent-soft: #1C3A2E;
+  --plaque: #1D5591; --plaque-ink: #FFFFFF; --note: #3A2F14; --note-ink: #F1DFA8;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font-family: var(--font-body); font-size: 1.1875rem; line-height: 1.5;
+}
+button, input, textarea, summary { font: inherit; color: inherit; }
+
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: var(--paper); border-bottom: 1px solid var(--line);
+  padding: .6rem 1rem .5rem;
+}
+.top-row { display: flex; align-items: center; justify-content: space-between; gap: .75rem; flex-wrap: wrap; max-width: 44rem; margin: 0 auto; }
+.plaque {
+  font-family: var(--font-display); font-weight: 700; letter-spacing: .06em; font-size: .95rem;
+  background: var(--plaque); color: var(--plaque-ink); padding: .25rem .75rem; border-radius: .35rem;
+  box-shadow: inset 0 0 0 2px var(--plaque), inset 0 0 0 3px var(--plaque-ink);
+}
+.zoom { display: flex; gap: .35rem; align-items: center; }
+.zoom span { font-size: .85rem; color: var(--muted); margin-right: .15rem; }
+.zbtn { min-width: 2.5rem; min-height: 2.5rem; border: 2px solid var(--line); background: var(--card); border-radius: .6rem; cursor: pointer; font-weight: 700; }
+.zbtn[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.stepline { max-width: 44rem; margin: .45rem auto 0; display: flex; justify-content: space-between; flex-wrap: wrap; gap: .1rem .75rem; font-size: .95rem; color: var(--muted); }
+.saved { color: var(--accent); font-weight: 700; }
+.saved.bad { color: var(--note-ink); background: var(--note); padding: 0 .4rem; border-radius: .3rem; }
+.bar { max-width: 44rem; margin: .3rem auto 0; height: .45rem; background: var(--line); border-radius: 1rem; overflow: hidden; }
+.bar > i { display: block; height: 100%; background: var(--accent); width: 0; transition: width .25s ease; }
+@media (prefers-reduced-motion: reduce) { .bar > i { transition: none; } }
+
+main { max-width: 44rem; margin: 0 auto; padding: 1.25rem 1rem 8.5rem; }
+h1, h2 { font-family: var(--font-display); line-height: 1.2; text-wrap: balance; margin: 0; overflow-wrap: anywhere; hyphens: auto; }
+.btn, .jump button, summary { overflow-wrap: anywhere; }
+h1 { font-size: 1.75rem; }
+h1.hero { font-size: 2.05rem; }
+h2 { font-size: 1.4rem; }
+h1:focus, h2:focus { outline: none; }
+.lead { color: var(--muted); margin: .75rem 0 0; }
+.panel { background: var(--card); border: 1px solid var(--line); border-radius: .9rem; padding: 1.1rem 1.1rem; margin-top: 1.1rem; }
+.why { background: var(--note); color: var(--note-ink); border-radius: .7rem; padding: .8rem 1rem; margin-top: 1rem; font-size: 1rem; }
+.why b { display: block; font-size: .85rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: .15rem; }
+.rules { margin: .5rem 0 0; padding-left: 1.2rem; }
+.rules li { margin-top: .5rem; }
+.secprog { margin: .8rem 0 0; color: var(--accent); font-weight: 700; }
+
+.q { border: 0; margin: 0; padding: 0; min-width: 0; margin-top: 1.7rem; }
+.q-label { padding: 0; font-weight: 700; font-size: 1.2rem; line-height: 1.35; margin-bottom: .55rem; }
+.hint { margin: -.25rem 0 .6rem; color: var(--muted); font-size: .98rem; }
+.q-body { display: grid; gap: .5rem; }
+.q-body.row { grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); }
+.choice {
+  position: relative; display: flex; align-items: center; gap: .75rem; min-height: 3.25rem;
+  padding: .65rem 1rem; border: 2px solid var(--line); border-radius: .8rem; background: var(--card); cursor: pointer;
+}
+.choice input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.mark { flex: none; width: 1.45rem; height: 1.45rem; border: 2px solid var(--muted); border-radius: 50%; background: var(--card); }
+.choice input[type="checkbox"] + .mark { border-radius: .35rem; }
+.choice input:checked + .mark { background: var(--accent); border-color: var(--accent); box-shadow: inset 0 0 0 .2rem var(--card); }
+.choice:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
+.choice:has(input:focus-visible) { outline: 3px solid var(--accent); outline-offset: 2px; }
+.choice:has(input:disabled) { opacity: .5; cursor: default; }
+.txt { min-width: 0; overflow-wrap: anywhere; }
+
+.field { width: 100%; padding: .7rem .9rem; border: 2px solid var(--line); border-radius: .8rem; background: var(--card); min-height: 3.25rem; }
+textarea.field { min-height: 8rem; resize: vertical; line-height: 1.45; }
+.field:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-color: var(--accent); }
+.field:disabled { opacity: .5; }
+
+.scale { display: grid; grid-template-columns: repeat(5, 1fr); gap: .5rem; }
+.scale .choice { flex-direction: column; justify-content: center; text-align: center; gap: .25rem; padding: .6rem .25rem; }
+.scale .mark { display: none; }
+.scale .num { font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; }
+.scale-cap { display: flex; justify-content: space-between; gap: 1rem; color: var(--muted); font-size: .95rem; margin-top: .35rem; }
+
+.sub { padding: .9rem 1rem; border: 1px solid var(--line); border-radius: .8rem; background: var(--card); }
+.sub-l { font-weight: 700; margin-bottom: .5rem; padding: 0; }
+.numrow { display: grid; grid-template-columns: 1fr 7.5rem; gap: .75rem; align-items: center; }
+.numrow label { overflow-wrap: anywhere; }
+
+.nsp {
+  justify-self: start; margin-top: .15rem; background: none; border: 0; padding: .45rem .1rem; cursor: pointer;
+  color: var(--muted); text-decoration: underline; text-underline-offset: 3px; font-size: 1rem; min-height: 2.5rem;
+}
+.nsp[aria-pressed="true"] { color: var(--accent); font-weight: 700; text-decoration: none; }
+.nsp:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: .3rem; }
+
+.nav {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 6; background: var(--paper); border-top: 1px solid var(--line);
+  padding: .7rem 1rem calc(.7rem + env(safe-area-inset-bottom, 0px));
+}
+.nav-in { max-width: 44rem; margin: 0 auto; display: flex; gap: .75rem; flex-wrap: wrap; }
+.nav-in.actions { margin-top: .8rem; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem; min-height: 3.4rem; padding: .6rem 1.2rem;
+  border-radius: .9rem; border: 2px solid var(--accent); background: var(--accent); color: var(--accent-ink);
+  font-weight: 700; cursor: pointer; flex: 1; min-width: 0;
+}
+.btn.ghost { background: var(--card); color: var(--ink); border-color: var(--line); flex: 0 0 auto; }
+.btn.alt { background: var(--card); color: var(--accent); }
+.btn:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.btn:disabled { opacity: .45; cursor: default; }
+.bigchoice { display: grid; gap: .75rem; margin-top: 1rem; }
+.bigchoice .btn { flex-direction: column; align-items: flex-start; text-align: left; padding: 1rem 1.2rem; gap: .15rem; font-size: 1.15rem; }
+.bigchoice .btn small { font-weight: 400; opacity: .9; font-size: .98rem; }
+
+.stat { display: flex; gap: .6rem; flex-wrap: wrap; margin-top: .75rem; }
+.chip { padding: .3rem .8rem; border-radius: 2rem; background: var(--accent-soft); font-weight: 700; font-size: .98rem; }
+.out { font-family: ui-monospace, Consolas, monospace; font-size: .85rem; line-height: 1.4; min-height: 14rem; }
+.status { margin-top: .6rem; min-height: 1.5rem; font-weight: 700; color: var(--accent); }
+.jump { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .6rem; }
+.jump button { border: 2px solid var(--line); background: var(--card); border-radius: .6rem; padding: .4rem .8rem; cursor: pointer; min-height: 2.6rem; text-align: left; }
+.pause { border-style: dashed; margin-top: 2.2rem; }
+.pause p { margin: .4rem 0 .8rem; color: var(--muted); }
+.banner { background: var(--note); color: var(--note-ink); border-radius: .8rem; padding: .8rem 1rem; margin-bottom: 1rem; font-weight: 700; }
+details.restore { margin-top: 1.4rem; }
+details.restore summary { cursor: pointer; padding: .6rem 0; font-weight: 700; color: var(--accent); min-height: 2.75rem; }
+details.restore textarea { min-height: 7rem; }
+.nojs, .fatal { background: var(--note); color: var(--note-ink); border-radius: .9rem; padding: 1.2rem; }
+.nojs h1, .fatal h2 { font-size: 1.5rem; margin-bottom: .6rem; }
+.nojs p, .fatal p { margin: .6rem 0 0; }
+.fatal code { display: block; margin-top: .6rem; padding: .6rem .8rem; background: var(--card); color: var(--ink); border-radius: .6rem; overflow-wrap: anywhere; font-size: .9rem; }
+.lbl-block { display: block; }
+.h-sub { margin-top: 1.6rem; font-size: 1.35rem; }
+</style>
+
+<header class="top">
+  <div class="top-row">
+    <span class="plaque">CHR &amp; HOME</span>
+    <div class="zoom" role="group" aria-label="Taille du texte">
+      <span>Texte</span>
+      <button type="button" class="zbtn" data-z="100" aria-pressed="true" title="Texte normal">A</button>
+      <button type="button" class="zbtn" data-z="118" aria-pressed="false" title="Texte grand">A+</button>
+      <button type="button" class="zbtn" data-z="136" aria-pressed="false" title="Texte très grand">A++</button>
+    </div>
+  </div>
+  <div class="stepline"><span id="steptxt">Accueil</span><span id="modetxt"></span><span id="savetxt" class="saved"></span></div>
+  <div class="bar" role="progressbar" aria-label="Avancement" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="barfill"></i></div>
+</header>
+
+<main id="main" tabindex="-1">
+  <div class="nojs">
+    <h1>Cette page ne peut pas s’afficher ici</h1>
+    <p>Le questionnaire doit s’ouvrir dans un vrai navigateur : <b>Chrome</b> sur un téléphone Android, <b>Safari</b> sur un iPhone.</p>
+    <p>Si vous l’avez reçu en pièce jointe ou dans l’aperçu d’un e-mail, il ne peut pas fonctionner. Demandez à votre fils de vous envoyer un <b>lien</b>, puis appuyez dessus.</p>
+  </div>
+</main>
+
+<nav class="nav" id="nav" aria-label="Navigation du questionnaire" hidden>
+  <div class="nav-in">
+    <button type="button" class="btn ghost" id="prev">← Retour</button>
+    <button type="button" class="btn" id="next">Suivant →</button>
+  </div>
+</nav>
+
+<script>
+(function () {
+  'use strict';
+  var STORE_KEY = 'chr-home-questionnaire-pere-v2';
+  var NSP = '__nsp__';
+  var NSP_LABEL = 'Je ne sais pas (à vérifier)';
+  var DOCS_OPT = ['Je l’ai', 'Je le cherche', 'Je ne l’ai pas'];
+  var VAL_OPT = ['Je valide avant l’envoi', 'Prévenez-moi après', 'Faites sans me demander'];
+  var AUTRE = 'Autre (à préciser avec mon fils)';
+  var storageOK = true;
+  var lastSaved = null;
+
+  function R(id, q, o, lv, x) { return Object.assign({ id: id, t: 'radio', q: q, o: o, lv: lv || 2 }, x || {}); }
+  function C(id, q, o, lv, x) { return Object.assign({ id: id, t: 'check', q: q, o: o, lv: lv || 2 }, x || {}); }
+  function T(id, q, lv, x) { return Object.assign({ id: id, t: 'text', q: q, lv: lv || 2 }, x || {}); }
+  function L(id, q, lv, x) { return Object.assign({ id: id, t: 'long', q: q, lv: lv || 2 }, x || {}); }
+  function M(id, q, lv, x) { return Object.assign({ id: id, t: 'month', q: q, lv: lv || 2, hint: 'Indiquez le mois et l’année.' }, x || {}); }
+  function S(id, q, lo, hi, lv, x) { return Object.assign({ id: id, t: 'scale', q: q, lo: lo, hi: hi, lv: lv || 2 }, x || {}); }
+  function X(id, q, items, lv, x) { return Object.assign({ id: id, t: 'matrix', q: q, items: items, o: VAL_OPT, lv: lv || 2 }, x || {}); }
+  function N(id, q, items, lv, x) { return Object.assign({ id: id, t: 'numbers', q: q, items: items, lv: lv || 2, hint: 'Laissez vide ce que vous ne savez pas.' }, x || {}); }
+  function D(id, q, items, lv, x) { return Object.assign({ id: id, t: 'docs', q: q, items: items, o: DOCS_OPT, lv: lv || 2 }, x || {}); }
+  function yes(v) { return v === 'Oui'; }
+  function startsOui(v) { return typeof v === 'string' && v.indexOf('Oui') === 0; }
+
+  /* Les parties sont rangées par ordre d’importance : si le père s’arrête tôt, l’essentiel est déjà là. */
+  var SECTIONS = [
+    { id: 'carte', title: 'Votre carte professionnelle et votre aptitude',
+      why: 'L’agence ne peut ni démarcher ni signer de mandat avant que sa société ait reçu sa propre carte. Cette carte se demande après l’immatriculation de la société, et la CCI examine à nouveau votre aptitude. Ces réponses nous disent quelles démarches faire, et dans quel ordre.',
+      qs: [
+        R('a1', 'Avez-vous encore votre carte professionnelle ?', ['Oui, elle est en cours de validité', 'Oui, mais elle est expirée', 'Non, je ne l’ai plus'], 1),
+        M('a2', 'Quelle est la date de fin de validité de la carte ?', 1, { show: function (a) { return startsOui(a.a1); } }),
+        R('a3', 'À qui votre dernière carte a-t-elle été délivrée ?', ['À mon entreprise individuelle (à mon nom)', 'À une société dont j’étais dirigeant'], 1, { hint: 'Quand c’est une société, la carte est délivrée à la société, pas à la personne du dirigeant.' }),
+        C('a4', 'Quelles mentions figuraient sur cette carte ?', ['Transaction sur immeubles et fonds de commerce', 'Gestion immobilière', 'Syndic de copropriété', 'Marchand de listes', 'Autre mention'], 1, { hint: 'Cochez tout ce qui est écrit sur la carte.' }),
+        R('a15', 'Avez-vous déjà obtenu une carte professionnelle pour une SOCIÉTÉ (et non en nom propre) ?', ['Oui, acceptée du premier coup', 'Oui, après des pièces complémentaires', 'Non, toujours en entreprise individuelle'], 1),
+        L('a16', 'Quelles pièces ou corrections la CCI vous a-t-elle demandées en plus ? (statuts, extrait d’immatriculation, attestation d’assurance, signatures…)', 2, { show: function (a) { return a.a15 === 'Oui, après des pièces complémentaires'; } }),
+        R('a17', 'Dans la nouvelle agence, comptez-vous recevoir des fonds de clients (chèque d’acompte, dépôt de garantie, séquestre) ?', ['Non, jamais : tout passera par le notaire ou l’avocat', 'Oui, parfois', 'Je ne sais pas encore'], 1, { hint: 'Si non, une déclaration de non-détention de fonds remplace la garantie financière. Si oui, la garantie financière est exigée, avec un montant minimal plus élevé quand un dirigeant a déjà exercé dans l’immobilier.' }),
+        R('a7', 'Vos formations continues obligatoires sont-elles à jour ?', ['Oui, je suis à jour', 'En partie', 'Non'], 1, { hint: '14 heures par an, ou 42 heures sur 3 ans, dont des heures sur la non-discrimination dans l’accès au logement et sur la déontologie. Seules comptent celles suivies pendant la validité de la carte.' }),
+        R('a9', 'Qu’est-ce qui justifie votre aptitude professionnelle pour la nouvelle demande ?', ['Un diplôme (bac + 3 en droit, économie ou commerce ; BTS Professions immobilières ; diplôme de l’ICH)', 'Un baccalauréat et au moins 3 ans comme salarié dans l’immobilier', 'Au moins 10 ans comme salarié non cadre, ou 4 ans comme cadre, dans l’intermédiation immobilière', 'Surtout mes années comme dirigeant ou indépendant (non salarié)', 'Ma carte délivrée avant 2006', 'Je ne sais pas'], 1, { hint: 'La CCI contrôle à nouveau l’aptitude pour la nouvelle société. L’expérience retenue est celle d’un salarié dans l’intermédiation immobilière.' }),
+        T('a10', 'Précisez : l’intitulé du diplôme, ou les années où vous avez travaillé comme salarié (années seulement).', 2),
+        T('a8', 'Dernière formation continue suivie : année et organisme.', 2),
+        T('a11', 'Quel était votre assureur en responsabilité civile professionnelle ?', 2),
+        R('a12', 'Ce contrat d’assurance est-il résilié ?', ['Oui', 'Non'], 2),
+        R('a13', 'Y a-t-il eu un sinistre déclaré à votre assureur, ou une résiliation par l’assureur, ces dernières années ?', ['Oui', 'Non', 'Je préfère en parler de vive voix'], 2),
+        R('a6', 'Dans l’ancienne agence, receviez-vous des fonds de clients ?', ['Oui, avec une garantie financière', 'Non : tout passait par le notaire ou l’avocat', 'Je ne sais plus'], 2),
+        R('a18', 'Votre attestation d’assurance indiquait-elle expressément l’activité « transaction sur immeubles et fonds de commerce » ?', ['Oui', 'Non', 'Je ne sais pas'], 2, { hint: 'La CCI exige que l’attestation indique les activités assurées et les noms des dirigeants.' })
+      ] },
+    { id: 'ancienne', title: 'L’ancienne agence CHR HOME',
+      why: 'Il faut savoir comment l’ancienne agence est fermée, ce qu’elle a laissé derrière elle et ce que vous avez conservé. Cela évite de reprendre une dette ou un risque sans le savoir.',
+      qs: [
+        R('b1', 'Quelle était la forme de l’ancienne agence ?', ['Entreprise individuelle (à mon nom)', 'EURL ou SARL', 'SAS ou SASU', 'SA', AUTRE], 1),
+        R('b2', 'Comment l’ancienne agence a-t-elle été (ou est-elle en train d’être) fermée ?', ['Dissolution amiable terminée, radiation faite', 'Dissolution ou liquidation amiable en cours', 'Cessation d’entreprise individuelle, radiation faite', 'Procédure du tribunal (sauvegarde, redressement ou liquidation judiciaire)', 'Activité arrêtée, aucune formalité de fermeture', 'Agence vendue ou cédée à quelqu’un d’autre'], 1),
+        M('b3', 'À quelle date environ l’agence a-t-elle cessé toute activité ?', 1),
+        C('b4', 'Reste-t-il quelque chose en suspens lié à l’ancienne agence ?', ['Des dettes (fournisseurs, bailleur, impôts, cotisations)', 'Un litige avec un client ou un ancien collaborateur', 'Un sinistre déclaré à mon assureur', 'Des mandats restés ouverts ou des honoraires non encaissés', 'Une procédure en cours (tribunal, contrôle)', 'Rien de tout cela'], 1),
+        C('b5', 'De quelle nature sont ces dettes ou litiges ?', ['Impôts ou cotisations sociales', 'Fournisseurs ou bailleur', 'Un ancien client', 'Un ancien salarié ou collaborateur', 'Un confrère', 'Je préfère en parler de vive voix'], 2, { show: function (a) { return Array.isArray(a.b4) && a.b4.some(function (v) { return v !== 'Rien de tout cela'; }); } }),
+        R('b11', 'Les données de l’ancienne agence (logiciel immobilier, e-mails, site) sont-elles encore accessibles ?', ['Oui, les abonnements sont payés', 'Oui, mais un abonnement s’arrête bientôt', 'Non, les abonnements sont résiliés', 'Je ne sais pas, quelqu’un d’autre s’en occupait'], 1, { hint: 'Après une résiliation, le fournisseur peut effacer les registres et les contacts.' }),
+        R('b7', 'Avez-vous conservé le registre des mandats (et, si vous receviez des fonds, le registre-répertoire) ?', ['Oui, sur papier', 'Oui, en numérique', 'Non'], 2, { hint: 'Ces registres doivent être conservés 10 ans.' }),
+        R('b14', 'Le site de l’ancienne agence (chr-home.fr) est encore en ligne. Qui l’a créé et qui paie le nom de domaine ?', ['C’est moi', 'C’est l’ancienne société', 'C’est quelqu’un d’autre (prestataire, proche)'], 2),
+        R('b13', 'L’ancienne agence avait-elle déposé son nom ou son logo comme marque (à l’INPI) ?', ['Oui', 'Non'], 2),
+        R('b10', 'Pour la nouvelle agence, voulez-vous adhérer à un syndicat ou à un réseau professionnel (formation, assistance juridique, médiateur) ?', ['Oui, au même qu’avant', 'Oui, à un autre', 'Non', 'Je ne sais pas encore'], 2)
+      ] },
+    { id: 'creation', title: 'Créer une agence : ce que vous avez vécu',
+      why: 'Vous avez déjà créé des agences. Ce que vous avez vécu (l’ordre des démarches, les délais, les coûts, les pièges) vaut mieux que n’importe quel guide. Cela permet de préparer chaque démarche sans perdre de temps.',
+      qs: [
+        L('m2', 'Pour la dernière création, dans quel ordre avez-vous fait les démarches ? (société, banque, carte professionnelle, assurances, local, site…)', 1),
+        N('m4n', 'Pour votre dernière création d’agence, donnez des ordres de grandeur.', [
+          { id: 'semaines', label: 'Semaines entre le dépôt du dossier complet à la CCI et la carte reçue' },
+          { id: 'mois', label: 'Mois entre le début des démarches et la première commission encaissée' },
+          { id: 'total', label: 'Total dépensé avant cette commission (société, assurances, local, matériel), en euros' }], 1),
+        L('m7', 'Quelles erreurs ou quels pièges aimeriez-vous éviter cette fois ?', 2),
+        R('m1', 'Combien d’agences avez-vous déjà créées ?', ['Une', 'Deux', 'Trois ou plus'], 2),
+        C('m6', 'Qui vous a aidé pour les démarches ?', ['Un expert-comptable', 'Un avocat', 'Mon syndicat professionnel', 'La CCI', 'Personne, j’ai tout fait seul', AUTRE], 2),
+        L('m8', 'Qu’est-ce qui a pris plus de temps ou coûté plus cher que prévu ?', 2),
+        L('m9', 'Qu’avez-vous découvert trop tard ?', 2),
+        R('m10', 'Combien d’heures par semaine l’administratif vous prenait-il ?', ['Moins de 5 heures', '5 à 10 heures', '10 à 20 heures', 'Plus de 20 heures'], 2),
+        R('m11', 'Avez-vous déjà été contrôlé par la DGCCRF (la « répression des fraudes »), la CNIL, l’administration fiscale ou l’Urssaf ?', ['Oui', 'Non'], 2),
+        R('m12', 'Quel a été le résultat du dernier contrôle ?', ['Aucune remarque', 'Des remarques corrigées sur place', 'Une amende ou un procès-verbal', 'Je préfère en parler de vive voix'], 2, { show: function (a) { return yes(a.m11); } })
+      ] },
+    { id: 'situation', title: 'Votre situation et votre temps',
+      why: 'Vous serez la personne qui décide et qui engage sa responsabilité. Il faut organiser l’agence pour que vous puissiez valider vite, sans y passer vos journées, et prévoir qui vous remplace si vous êtes absent.',
+      qs: [
+        R('c1', 'Touchez-vous déjà une pension de retraite ?', ['Oui, pour tous mes régimes', 'Oui, pour une partie seulement', 'Non, pas encore', 'Non, et je n’ai pas atteint l’âge'], 1),
+        R('c2', 'Souhaitez-vous cumuler votre retraite et cette activité ?', ['Oui', 'Non', 'À voir avec l’expert-comptable'], 2, { show: function (a) { return startsOui(a.c1); } }),
+        C('c15', 'Aujourd’hui, avez-vous une autre activité professionnelle ?', ['Salarié(e) d’une entreprise', 'Dirigeant(e) d’une autre société (agence, SCI, autre)', 'Encore rattaché(e) à une autre agence', 'Aucune autre activité'], 1),
+        R('c3', 'Combien de jours par semaine pouvez-vous consacrer à l’agence ?', ['1 à 2', '3', '4', '5 ou plus'], 1),
+        C('c4', 'À quels moments pouvez-vous répondre aux demandes de validation sur votre téléphone ?', ['Le matin, avant 12 h', 'Le midi', 'L’après-midi', 'Le soir, après 18 h', 'Le week-end'], 1),
+        M('c16', 'À quelle date souhaiteriez-vous signer votre premier mandat ?', 1, { hint: 'Indiquez le mois et l’année. La carte de la société doit être délivrée avant le premier mandat.' }),
+        R('c5', 'En cas d’absence longue, une personne de confiance pourrait-elle assurer la direction de l’agence ?', ['Oui, quelqu’un qui remplit les conditions pour être nommé second dirigeant (diplôme ou expérience salariée, honorabilité)', 'Oui, un collaborateur habilité, mais qui ne pourrait pas diriger', 'Non'], 1),
+        L('c6', 'Qui serait cette personne ? (son rôle suffit, pas besoin de nom)', 2, { show: function (a) { return startsOui(a.c5); } }),
+        C('c17', 'Prévoyez-vous des collaborateurs la première année ?', ['Non, seulement mon fils et moi', 'Un négociateur salarié', 'Des agents commerciaux indépendants', 'Un assistant administratif', 'À voir plus tard'], 1, { hint: 'Chaque collaborateur qui négocie doit être habilité par vous auprès de la CCI.' }),
+        C('c7', 'Quelles langues parlez-vous ?', ['Français', 'Anglais', 'Espagnol', 'Italien', 'Arabe', 'Chinois', 'Portugais', 'Turc', AUTRE], 2),
+        R('c18', 'Si vous ne répondez pas à une demande urgente, que doit faire le système ?', ['Attendre, même plusieurs heures', 'Me renvoyer un message au bout d’une heure', 'Me renvoyer un SMS puis m’appeler', 'Prévenir mon fils'], 2)
+      ] },
+    { id: 'accord', title: 'Le démarrage et votre place',
+      why: 'Vous serez le dirigeant de la société titulaire de la carte : c’est vous qui décidez de ce qui engage l’agence. Ces réponses règlent le démarrage et préparent le travail avec l’avocat.',
+      intro: 'Les questions de parts, de rémunération, de propriété du code et de la marque ne sont pas posées ici : elles se règlent à deux, avec un avocat.',
+      qs: [
+        X('l7', 'Voici ce que nous avons supposé pour démarrer. Pour chaque point, êtes-vous d’accord ?', [
+          { id: 'equipe', label: 'Au départ : vous et votre fils, sans salarié' },
+          { id: 'role', label: 'Vous êtes président et dirigeant de la société ; votre fils est associé mais ne dirige pas' },
+          { id: 'gestion', label: 'L’agence fait seulement la vente, la cession et la mise en location : jamais de gestion locative, de syndic ni de location saisonnière' },
+          { id: 'titres', label: 'Pas de vente de parts ou d’actions de sociétés tant qu’un avocat n’a pas donné son accord' },
+          { id: 'zone', label: 'Logements à Paris ; commerces et hôtels à Paris et en petite couronne' },
+          { id: 'essai', label: 'Premier essai avec de vrais clients fin mars 2027' },
+          { id: 'lancement', label: 'Ouverture au public en mai ou juin 2027' }], 1, { o: ['D’accord', 'Pas d’accord', 'À discuter'] }),
+        N('l8', 'Pour les premiers mois, donnez des montants (laissez vide ce que vous préférez dire de vive voix) :', [
+          { id: 'apport', label: 'Somme que vous pouvez apporter à la société, en euros' },
+          { id: 'mois', label: 'Nombre de mois où vous pouvez vivre sans rémunération de l’agence' },
+          { id: 'remu', label: 'Revenu mensuel que vous voulez tirer de l’agence après la première année, en euros' },
+          { id: 'depenses', label: 'Dépenses mensuelles maximales de l’agence avant les premières commissions, en euros' }], 1, { hint: 'La commission n’est payée qu’à la signature de l’acte, souvent plusieurs mois après le début. Laissez vide ce que vous préférez dire de vive voix.' }),
+        R('l1', 'Qui doit avoir le dernier mot sur ce qui engage l’agence (mandats, prix, clients) ?', ['Moi, en tant que dirigeant', 'Nous deux, d’un commun accord', 'À discuter'], 1),
+        R('l2', 'Êtes-vous prêt à signer un accord écrit avec votre fils, avec un avocat, avant que le travail avance ?', ['Oui', 'Non', 'À discuter'], 1),
+        R('l9', 'Si vous deveniez indisponible durablement, que souhaiteriez-vous pour la société ?', ['Que mon fils continue avec un nouveau responsable titulaire de la carte', 'Qu’elle soit vendue', 'Qu’elle soit fermée', 'Je n’y ai pas réfléchi, à discuter'], 1),
+        R('c19', 'Avez-vous une préférence pour la forme de la société ?', ['SAS', 'SARL', 'Aucune, je suivrai l’expert-comptable'], 2)
+      ] },
+    { id: 'validation', title: 'Ce que vous voulez valider vous-même',
+      why: 'Votre téléphone vous demandera votre accord avant ce qui engage l’agence. Vos choix servent à régler le niveau de confiance. Pour certaines actions (mandat, estimation, offre), seul vous, ou un collaborateur que vous aurez habilité, pouvez engager l’agence : votre validation sera de toute façon demandée, quoi que vous répondiez ici.',
+      qs: [
+        X('j1', 'Pour chaque action, que souhaitez-vous ?', [
+          { id: 'info', label: 'Première réponse à une demande d’information d’un client' },
+          { id: 'estim', label: 'Envoi d’une estimation de prix' },
+          { id: 'mandat', label: 'Envoi d’un mandat' },
+          { id: 'annonce', label: 'Publication d’une annonce' },
+          { id: 'social', label: 'Publication sur les réseaux sociaux' },
+          { id: 'chiffres', label: 'Envoi des chiffres d’un fonds de commerce à un repreneur' },
+          { id: 'relance', label: 'Relance d’un acquéreur ou d’un repreneur' },
+          { id: 'pro', label: 'Réponse à un notaire, une banque ou un courtier' },
+          { id: 'offre', label: 'Envoi d’une offre d’achat' },
+          { id: 'honoraires', label: 'Annonce d’un honoraire ou d’un devis' }], 1),
+        X('j1b', 'Et pour ces quatre autres actions ?', [
+          { id: 'avis', label: 'Réponse à un avis négatif ou à une réclamation' },
+          { id: 'tel', label: 'Réponse de l’accueil téléphonique qui donne un prix, un honoraire ou une promesse' },
+          { id: 'prospect', label: 'Premier message à un propriétaire de commerce repéré dans les annonces légales' },
+          { id: 'depense', label: 'Nouvelle dépense ou nouvel abonnement' }], 2)
+      ] },
+    { id: 'fonds', title: 'Votre savoir-faire sur les fonds de commerce',
+      why: 'C’est le cœur de votre métier et ce que les autres agences font moins bien. Vos méthodes serviront à construire l’outil d’estimation et le suivi des dossiers, avec vos propres règles.',
+      qs: [
+        L('o2', 'Comment fixez-vous le prix d’un bien ? Pour chaque type (bar ou café, restaurant, hôtel, droit au bail, murs), donnez votre règle habituelle avec une fourchette. Dites si vous partez du chiffre d’affaires, du résultat, du loyer ou d’autre chose.', 1, { hint: 'Exemple de présentation : « Restaurant : de … à … % du chiffre d’affaires annuel hors taxes ». Vous pouvez dicter.' }),
+        C('o1', 'Quels éléments pèsent dans le prix d’un fonds ?', ['Le chiffre d’affaires', 'Le résultat ou l’excédent brut d’exploitation', 'Le loyer et la durée du bail', 'L’emplacement', 'Les licences (débit de boissons, restaurant)', 'Les équipements', 'La terrasse', 'Les ventes comparables', 'Le potentiel de développement'], 1),
+        C('o4', 'Quelles vérifications faites-vous avant d’accepter un mandat sur un fonds ?', ['Les bilans des trois dernières années', 'Le bail : durée, destination, loyer, garanties', 'Les licences : catégorie, exploitation continue', 'Les autorisations (terrasse, étalage) et leur transmission', 'Les dettes, le personnel et l’information des salariés', 'La sécurité et l’accessibilité (établissement recevant du public)', 'Le règlement de copropriété et la destination des locaux', 'Le droit de préemption de la Ville sur les fonds et les baux', 'Pour les murs : le droit de préférence du locataire', 'La situation du propriétaire des murs'], 1),
+        X('o5x', 'Dans vos ventes de fonds de commerce, qui s’occupait de chaque étape ?', [
+          { id: 'compromis', label: 'Rédaction de la promesse ou du compromis de cession' },
+          { id: 'sequestre', label: 'Détention de l’acompte ou du prix (séquestre)' },
+          { id: 'publicite', label: 'Publication de la vente dans un journal d’annonces légales' },
+          { id: 'acte', label: 'Rédaction de l’acte définitif' }], 1, { o: ['L’agence', 'Le notaire', 'Un avocat', 'Cela variait'] }),
+        C('o7', 'Quels types de mandats utilisez-vous ?', ['Exclusif', 'Simple', 'Semi-exclusif', 'Mandat de recherche pour un acquéreur'], 1),
+        R('o13', 'Faites-vous signer un accord de confidentialité avant de donner les chiffres ?', ['Toujours', 'Parfois', 'Jamais'], 1),
+        R('o14', 'Faisiez-vous aussi des cessions de titres (parts ou actions de la société qui exploite le commerce) ?', ['Souvent', 'Parfois', 'Jamais'], 1),
+        R('o12', 'Demandez-vous à un repreneur de justifier de ses fonds avant de lui donner les chiffres ?', ['Toujours', 'Souvent', 'Rarement'], 2),
+        R('o8', 'Quelle période irrévocable prévoyez-vous dans vos mandats exclusifs ?', ['Moins de 3 mois', '3 mois', 'Plus de 3 mois', 'Variable selon le mandat'], 2),
+        R('o22', 'Où signiez-vous le plus souvent vos mandats ?', ['À l’agence', 'Chez le vendeur ou dans son commerce', 'À distance (e-mail, signature en ligne)', 'Autant l’un que l’autre'], 2),
+        R('o6', 'Combien de temps s’écoule entre le compromis et l’acte définitif ?', ['Moins de 2 mois', 'De 2 à 4 mois', 'Plus de 4 mois'], 2),
+        C('o20', 'Quelles conditions mettiez-vous presque toujours dans un compromis de cession de fonds ?', ['Obtention du prêt par le repreneur', 'Accord du bailleur sur le bail', 'Validité ou transfert de la licence', 'Absence de préemption de la commune', 'Délai d’opposition des créanciers', 'Autorisations de la mairie (terrasse, travaux)'], 2),
+        L('o9', 'Qu’est-ce qui décide un vendeur à vous confier l’exclusivité ?', 2),
+        T('o11', 'Quels sont, d’après vous, les trois points qui font le plus baisser le prix d’un fonds ?', 2),
+        R('o15', 'En moyenne, de combien le prix final d’un fonds s’écartait-il de votre première estimation ?', ['Moins de 5 %', 'De 5 à 10 %', 'De 10 à 20 %', 'Plus de 20 %'], 2),
+        C('o16', 'Quels pièges avez-vous rencontrés sur les licences ?', ['Licence non exploitée depuis longtemps', 'Établissement en zone protégée', 'Formation ou permis d’exploitation du repreneur manquant', 'Déclaration à la Préfecture de police oubliée', 'Licence vendue séparément du fonds', 'Aucun'], 2),
+        C('o17', 'Quels points du bail bloquent le plus souvent une cession ?', ['Destination trop restrictive', 'Clause d’agrément du bailleur', 'Loyer en cours de révision', 'Bail trop court', 'Travaux ou charges refacturées', 'Garantie du cédant', 'Extraction ou terrasse refusée', 'Aucun'], 2),
+        R('o18', 'Pour les hôtels, vendiez-vous plutôt…', ['Les murs et le fonds ensemble', 'Le fonds seul (murs loués)', 'Les murs seuls', 'Je n’en vendais pas'], 2),
+        C('o19', 'Quels financeurs sollicitiez-vous pour les repreneurs ?', ['Banques', 'Courtiers', 'Garanties (Bpifrance, SIAGI…)', 'Prêts d’honneur', 'Aucun, ils se débrouillaient'], 2),
+        C('o21', 'Pour estimer un logement, sur quoi vous appuyez-vous ?', ['Les ventes récentes du quartier (prix au m²)', 'Les annonces concurrentes', 'La visite et l’état du bien', 'L’étage, la vue, l’extérieur', 'Les charges de copropriété et les travaux', 'Le diagnostic énergétique (DPE)', 'Mes ventes passées'], 2)
+      ] },
+    { id: 'activite', title: 'Votre activité passée en chiffres',
+      why: 'Vos chiffres réels permettent de calibrer les estimations, les honoraires et le seuil de rentabilité. Des ordres de grandeur suffisent : aucune réponse n’a besoin d’être exacte au centime.',
+      qs: [
+        N('d3', 'Dans votre dernière année complète d’activité, combien d’affaires avez-vous menées jusqu’à l’acte signé ?', [
+          { id: 'fonds', label: 'Ventes de fonds de cafés, bars, restaurants' }, { id: 'hotels', label: 'Ventes d’hôtels (fonds ou murs)' },
+          { id: 'bail', label: 'Cessions de droit au bail' }, { id: 'murs', label: 'Ventes de murs commerciaux (hors hôtels)' },
+          { id: 'logv', label: 'Ventes de logements' }, { id: 'logl', label: 'Locations de logements' }], 1, { hint: 'Si l’année n’était pas typique, donnez une année moyenne. Mettez 0 s’il n’y en a pas.' }),
+        N('d3b', 'Et pour ces autres affaires, sur la même année ?', [
+          { id: 'titres', label: 'Cessions de parts ou d’actions d’une société exploitant un commerce' },
+          { id: 'locl', label: 'Locations de locaux commerciaux' }, { id: 'gerance', label: 'Locations-gérances de fonds' }], 2),
+        N('d6', 'Montant moyen de vos honoraires par affaire, en euros hors taxes :', [
+          { id: 'fonds', label: 'Fonds de commerce' }, { id: 'hotel', label: 'Hôtel' }, { id: 'bail', label: 'Droit au bail' },
+          { id: 'logv', label: 'Vente d’un logement' }, { id: 'logl', label: 'Location d’un logement' }], 1),
+        N('d6b', 'Et pour ces autres affaires, en euros hors taxes ?', [
+          { id: 'murs', label: 'Murs commerciaux' }, { id: 'locl', label: 'Location d’un local commercial' }], 2),
+        R('d16', 'Sur une cession de fonds, qui payait vos honoraires ?', ['Le vendeur', 'L’acquéreur', 'Les deux', 'Cela dépendait du mandat'], 1),
+        N('d10', 'Réussite et durée de vos mandats de vente :', [
+          { id: 'conv', label: 'Sur 10 mandats de vente signés, combien finissaient par une vente signée ?' },
+          { id: 'fonds', label: 'Mois entre la signature du mandat et l’acte, pour un fonds de commerce' },
+          { id: 'logt', label: 'Mois entre la signature du mandat et l’acte, pour un logement' }], 1),
+        C('d12', 'D’où venaient vos meilleures affaires ?', ['Le bouche-à-oreille et d’anciens clients', 'Les notaires', 'Les banques et les courtiers', 'Les experts-comptables et les avocats', 'D’autres agents et apporteurs', 'Les portails d’annonces', 'La vitrine', 'La publicité', 'Mon réseau personnel', AUTRE], 1),
+        R('d14', 'Rémunériez-vous des personnes qui vous recommandaient un vendeur ou un acheteur (apporteurs d’affaires) ?', ['Oui, régulièrement', 'Oui, parfois', 'Non, jamais'], 1),
+        L('d21', 'Quels sites d’annonces utilisiez-vous (logements, fonds de commerce) et combien payiez-vous environ par mois ?', 2),
+        T('d20', 'Citez les trois ou quatre agences, réseaux ou sites qui vous faisaient le plus concurrence à Paris. Vous pouvez les nommer.', 2),
+        R('d1', 'Depuis combien d’années exercez-vous dans l’immobilier ?', ['Moins de 5 ans', '5 à 10 ans', '10 à 20 ans', 'Plus de 20 ans'], 2),
+        T('d15', 'Comment les rémunériez-vous ? (pourcentage de vos honoraires, forfait ; professionnels ou particuliers)', 2, { show: function (a) { return startsOui(a.d14); } }),
+        L('d7', 'Comment calculiez-vous vos honoraires ? Pour chaque type d’affaire : pourcentage ou forfait, minimum, qui payait, hors taxes ou toutes taxes comprises, moment du paiement.', 2),
+        R('d11', 'Quelle part de vos mandats étaient exclusifs ?', ['Presque tous', 'La moitié', 'Peu'], 2),
+        R('d17', 'Partagiez-vous vos honoraires avec d’autres agences (affaire en collaboration) ?', ['Souvent', 'Parfois', 'Jamais'], 2),
+        R('d18', 'Pensez-vous recourir à des apporteurs d’affaires dans la nouvelle agence ?', ['Oui, des confrères titulaires d’une carte', 'Oui, d’autres personnes', 'Non', 'À voir avec l’avocat'], 2, { hint: 'Ne citez aucun nom. L’avocat fixera le cadre de leur rémunération avant tout versement.' }),
+        C('d19', 'Comment trouviez-vous des vendeurs de fonds ?', ['Appels aux commerçants', 'Passage en personne dans les commerces', 'Courriers ou e-mails', 'Recommandations', 'Portails d’annonces', 'Réseaux sociaux'], 2),
+        C('d13', 'Quels types de commerces vendiez-vous le mieux ?', ['Bar ou café', 'Brasserie', 'Restaurant', 'Hôtel', 'Discothèque ou bar de nuit', 'Restauration rapide', AUTRE], 2),
+        L('d14b', 'Y a-t-il une affaire dont vous êtes particulièrement fier ? Qu’avait-elle de particulier ?', 2)
+      ] },
+    { id: 'reseau', title: 'Vos contacts et vos partenaires',
+      why: 'Votre réseau est l’un des plus grands atouts de la nouvelle agence. La loi demande de savoir comment ces personnes ont donné leurs coordonnées avant de les recontacter : ces réponses permettent de le faire proprement.',
+      intro: 'Ne recopiez ici aucun nom ni numéro. Ces informations seront transmises à part, de façon sécurisée.',
+      qs: [
+        C('e1', 'Où sont vos contacts aujourd’hui ?', ['Carnet papier', 'Téléphone', 'Tableur (Excel)', 'Logiciel immobilier', 'E-mails', AUTRE], 1),
+        T('e2', 'Si c’est un logiciel, lequel ?', 1, { show: function (a) { return Array.isArray(a.e1) && a.e1.indexOf('Logiciel immobilier') >= 0; } }),
+        N('e3n', 'À propos de vos contacts, donnez des ordres de grandeur.', [
+          { id: 'total', label: 'Nombre approximatif de contacts' },
+          { id: 'pros', label: 'Part de professionnels (commerçants, notaires, banquiers, investisseurs), en %' },
+          { id: 'annees', label: 'Depuis combien d’années vous n’avez plus eu de contact avec la plupart d’entre eux' }], 1),
+        C('e6', 'Comment ces personnes sont-elles arrivées dans votre fichier ?', ['Elles m’ont contacté', 'Clients de mes transactions', 'Rencontrées en salons ou en réseaux', 'Fichier acquis auprès d’un tiers', AUTRE], 1),
+        R('e7', 'Avez-vous encore accès à ce fichier ?', ['Oui, en entier', 'Oui, en partie', 'Non'], 1),
+        N('e9', 'Combien de partenaires de confiance avez-vous, environ ?', [
+          { id: 'notaires', label: 'Notaires' }, { id: 'banques', label: 'Banques et courtiers' }, { id: 'avocats', label: 'Avocats' },
+          { id: 'experts', label: 'Experts-comptables' }, { id: 'diag', label: 'Diagnostiqueurs' }], 1),
+        R('e4', 'Avez-vous envoyé des e-mails collectifs à vos contacts (lettres d’information, annonces) ?', ['Oui', 'Non'], 2),
+        T('e5', 'Avec quel outil ou quel prestataire ?', 2, { show: function (a) { return yes(a.e4); } }),
+        R('e8', 'Qui détient aujourd’hui ce fichier de contacts ?', ['Moi seul', 'L’ancienne société', 'Moi et un ancien associé ou collaborateur', 'Un prestataire ou un logiciel'], 2),
+        R('e11', 'Vos contacts avaient-ils été informés que vous gardiez leurs coordonnées et qu’ils pouvaient refuser d’être recontactés ?', ['Oui, par écrit', 'Oui, oralement', 'Non'], 2),
+        N('e9b', 'Et dans ces catégories ?', [
+          { id: 'gest', label: 'Gestionnaires d’immeubles ou syndics' }, { id: 'agences', label: 'Autres agences (affaires en collaboration)' },
+          { id: 'mandataires', label: 'Mandataires judiciaires' }, { id: 'brasseurs', label: 'Brasseurs et fournisseurs de cafés-restaurants' }], 2)
+      ] },
+    { id: 'securite', title: 'Argent, fraudes et sécurité',
+      why: 'L’agence est soumise à des règles strictes contre le blanchiment d’argent et la fraude. Votre expérience montre ce qui arrive vraiment dans le métier, au-delà des textes.',
+      intro: 'Ne citez aucun nom de personne ni d’entreprise.',
+      qs: [
+        C('s1b', 'Quels types de tentatives de fraude avez-vous déjà rencontrés ?', ['Faux acheteur ou faux repreneur', 'Faux RIB ou changement de coordonnées bancaires', 'Faux justificatifs', 'Pression pour payer en espèces', 'Fausse annonce ou faux vendeur', 'Aucun'], 1, { hint: 'Aucun nom ni récit ici.' }),
+        R('s3', 'Comment vérifiez-vous l’identité d’un acheteur ou d’un vendeur ?', ['Pièce d’identité originale, en face à face', 'À distance, avec un outil de vérification d’identité', 'Copie reçue par e-mail ou message, puis contrôle', 'Cela dépend des dossiers'], 1),
+        R('s7', 'Dans l’ancienne agence, qui était inscrit comme déclarant et correspondant auprès de Tracfin ?', ['J’étais inscrit moi-même', 'C’était quelqu’un d’autre', 'Personne, ou je ne sais plus'], 1, { hint: 'Ne racontez aucune déclaration : seule l’inscription nous intéresse.' }),
+        R('s8', 'Aviez-vous des procédures écrites contre le blanchiment (évaluation des risques de l’agence, vigilance selon le client) ?', ['Oui, à jour', 'Oui, mais anciennes', 'Non, ou je ne sais plus'], 1),
+        L('s1', 'Racontez une tentative de fraude, sans aucun nom.', 2),
+        L('s2', 'Quels signaux vous alertent chez un acheteur ou un repreneur dont la situation vous paraît suspecte ?', 2),
+        R('s4', 'Un client a-t-il déjà voulu payer en espèces ou par chèque à l’agence ?', ['Oui', 'Non'], 2),
+        R('s5', 'Comment étiez-vous payé pour une cession de fonds ?', ['Par virement le jour de la signature de l’acte, prélevé sur le prix par le séquestre', 'Directement par le vendeur', 'Directement par l’acquéreur', 'Autrement'], 2),
+        R('s9', 'Avez-vous suivi une formation sur le blanchiment et le financement du terrorisme ?', ['Oui, dans les 12 derniers mois', 'Oui, il y a plus longtemps', 'Non'], 2),
+        C('s10', 'Quand votre acquéreur est une société, que demandez-vous ?', ['Un extrait d’immatriculation récent', 'Les statuts', 'La liste des associés (bénéficiaires effectifs)', 'Un justificatif d’identité du dirigeant', 'Un justificatif de l’origine des fonds', 'Rien de particulier'], 2),
+        R('s11', 'Comment traitiez-vous une réclamation écrite d’un client ?', ['Je répondais moi-même', 'Un collaborateur répondait', 'Par le syndicat ou l’avocat', 'Sans procédure écrite'], 2),
+        L('s6', 'Quelles situations difficiles avez-vous connues avec des clients mécontents ou agressifs, et comment les avez-vous réglées ?', 2),
+        R('s12', 'Quand vous visitez seul un local ou un logement vide, voulez-vous qu’une personne soit prévenue ?', ['Oui, à chaque visite', 'Seulement pour les visites tardives ou avec un inconnu', 'Non'], 2)
+      ] },
+    { id: 'pros', title: 'Les professionnels en qui vous avez confiance',
+      why: 'Choisir un bon avocat et un bon expert-comptable compte parmi les décisions les plus importantes. Votre carnet d’adresses et votre expérience valent plus que n’importe quelle recherche sur internet.',
+      intro: 'Ne donnez pas de nom ici : vous les direz de vive voix à votre fils.',
+      qs: [
+        C('p1', 'Parmi ces professionnels, lesquels connaissez-vous déjà et en qui avez-vous confiance ?', ['Un avocat spécialisé en immobilier et fonds de commerce', 'Un expert-comptable habitué aux agences', 'Un notaire pour les cessions de fonds', 'Un assureur ou courtier (responsabilité civile)', 'Une banque professionnelle', 'Aucun pour le moment'], 1),
+        R('p6', 'Préférez-vous choisir vous-même, ou que votre fils vous présente plusieurs avocats ?', ['Je choisis moi-même', 'Qu’il me présente plusieurs choix', 'Peu importe'], 2)
+      ] },
+    { id: 'documents', title: 'Les documents à retrouver',
+      why: 'Voici les documents dont votre fils et l’avocat auront besoin. Dites simplement où vous en êtes. Ne les envoyez pas par ce questionnaire : votre fils vous dira comment les lui remettre de façon sûre.',
+      qs: [
+        D('n1', 'Où en êtes-vous pour chacun de ces documents ?', [
+          { id: 'carte', label: 'Copie de la carte professionnelle' },
+          { id: 'aptitude', label: 'Diplôme, ou certificats de travail et bulletins de salaire de vos années comme salarié' },
+          { id: 'fermeture', label: 'Papiers de fermeture de l’ancienne agence (statuts, dernier extrait d’immatriculation, procès-verbal de dissolution, justificatif de radiation)' },
+          { id: 'bareme', label: 'Barème d’honoraires' },
+          { id: 'modeles', label: 'Modèles utilisés : mandats, bons de visite, offre d’achat, accord de confidentialité' },
+          { id: 'contacts', label: 'Liste de contacts (export du logiciel ou du tableur)' },
+          { id: 'registres', label: 'Registre des mandats (et registre-répertoire si vous receviez des fonds)' },
+          { id: 'cas', label: 'Vos 10 à 20 dernières ventes de fonds, sans noms : type, quartier, chiffre d’affaires, loyer, prix de vente' }], 1),
+        D('n1b', 'Et pour ces autres documents ?', [
+          { id: 'rcp', label: 'Ancienne attestation d’assurance (servira de modèle)' },
+          { id: 'garantie', label: 'Attestation de garantie financière (seulement si vous receviez des fonds)' },
+          { id: 'formation', label: 'Attestations des formations suivies' },
+          { id: 'partenaires', label: 'Liste des partenaires (notaires, banques, avocats…)' },
+          { id: 'dossier', label: 'Une trame vierge de dossier de présentation d’un fonds (sans aucune donnée réelle)' }], 2)
+      ] },
+    { id: 'souhaits', title: 'Ce que vous voulez faire, et ce que vous refusez',
+      why: 'L’agence peut tout faire, mais elle doit commencer par ce qui vous ressemble et ce qui rapporte. Dites aussi ce que vous ne voulez pas : c’est tout aussi utile.',
+      qs: [
+        C('g1', 'Quelles affaires voulez-vous en priorité ?', ['Fonds de commerce CHR', 'Droits au bail', 'Murs commerciaux', 'Hôtels', 'Ventes de logements', 'Locations de logements', 'Baux commerciaux (location de locaux)'], 1),
+        N('g3n', 'Quels prix visez-vous, en euros ?', [
+          { id: 'fmin', label: 'Fonds de commerce : minimum' }, { id: 'fmax', label: 'Fonds de commerce : maximum' },
+          { id: 'lmin', label: 'Logements : minimum' }, { id: 'lmax', label: 'Logements : maximum' }], 2),
+        L('g5', 'Qu’est-ce que vous ne voulez surtout pas faire ?', 2),
+        T('g2', 'Quels quartiers ou arrondissements préférez-vous ? (exemple : 8e, 9e, 17e, Paris centre)', 2)
+      ] },
+    { id: 'etrangers', title: 'Vos clients étrangers',
+      why: 'À Paris, beaucoup d’investisseurs et de repreneurs ne parlent pas français. Vos réponses décident des langues que l’agence proposera en premier au téléphone, sur le site et dans les documents.',
+      qs: [
+        N('f1n', 'Parmi vos clients, quelle part ne parlait pas français ?', [{ id: 'pct', label: 'Part en pourcentage (0 si aucun)' }], 1),
+        C('f2', 'Quelles langues parlaient-ils ?', ['Anglais', 'Chinois (mandarin)', 'Arabe', 'Espagnol', 'Portugais', 'Italien', 'Turc', 'Russe', 'Hindi, ourdou ou bengali', AUTRE], 1),
+        L('f3', 'Dans quels types d’affaires ? (hôtels, restaurants, investissements…)', 2),
+        C('f4', 'Comment communiquiez-vous avec eux ?', ['Je parle leur langue', 'Avec un interprète ou un proche', 'En anglais', 'Avec une traduction'], 2),
+        R('f5', 'Pour la signature de l’acte avec un client qui ne parle pas français, qui assurait la traduction ?', ['Un interprète payé par le client', 'Un proche du client', 'Le notaire', 'Moi ou l’agence', 'Cela ne s’est pas présenté'], 2)
+      ] },
+    { id: 'image', title: 'Votre voix, votre image, votre nom',
+      why: 'L’accueil téléphonique sera assuré par une intelligence artificielle, toujours présentée comme telle. Personne ne copiera votre voix ou votre visage sans votre accord écrit. Dites ici ce que vous acceptez.',
+      qs: [
+        R('h1', 'Quelle voix acceptez-vous pour l’accueil téléphonique ?', ['Une voix qui n’est pas la mienne', 'Une voix proche de la mienne, seulement après mon accord écrit', 'Je ne sais pas encore'], 1),
+        C('h2', 'Pour la communication de l’agence (site, réseaux, publicités), qu’acceptez-vous ?', ['Mes photos', 'Mes vidéos', 'Mon nom complet', 'Mon prénom seulement', 'Une image de moi créée par intelligence artificielle, si je valide chaque contenu', 'Rien : l’agence communique sans mon image'], 1, { hint: 'Votre nom figurera de toute façon comme dirigeant dans les documents officiels de la société.' }),
+        S('h5', 'Êtes-vous attaché au nom « CHR & HOME » ?', 'Pas du tout', 'Beaucoup', 2),
+        L('h6', 'Avez-vous d’autres idées de nom ?', 2),
+        R('h7', 'Seriez-vous d’accord pour une séance photo ou vidéo de deux heures avec votre fils ?', ['Oui', 'Plutôt non'], 2)
+      ] },
+    { id: 'local', title: 'Le local de l’agence',
+      why: 'Le local est un engagement de plusieurs années. Vos préférences permettent de préparer la recherche, de comparer des options prudentes et de ne vous faire visiter que ce qui convient.',
+      qs: [
+        R('k1', 'Plutôt une vitrine sur rue ou un bureau à l’étage ?', ['Sur rue, avec une vitrine', 'À l’étage', 'Peu importe'], 1),
+        N('k4n', 'Pour le local de l’agence :', [
+          { id: 'loyer', label: 'Loyer mensuel maximum, charges comprises, en euros' },
+          { id: 'surface', label: 'Surface minimale souhaitée, en mètres carrés' },
+          { id: 'pasporte', label: 'Somme maximale pour un pas-de-porte ou un droit d’entrée, en euros (0 si refusé)' }], 1),
+        R('k3', 'Un local qui reçoit du public doit être accessible aux personnes à mobilité réduite (ou bénéficier d’une dérogation). Que préférez-vous ?', ['De plain-pied (rez-de-chaussée)', 'À l’étage, avec ascenseur', 'Peu importe : l’avocat vérifiera la conformité'], 2),
+        R('k5', 'Quel type de bail seriez-vous prêt à signer pour le local ?', ['Bail dérogatoire (3 ans maximum, pour démarrer)', 'Bail commercial 3-6-9 (9 ans, départ possible tous les 3 ans)', 'Bureau partagé ou domiciliation au début', 'À voir avec l’avocat'], 2),
+        R('k8', 'L’agence sera-t-elle ouverte au public ou sur rendez-vous ?', ['Ouverte au public aux heures affichées', 'Sur rendez-vous seulement', 'Les deux selon les jours'], 2),
+        R('k9', 'Quand vous êtes en visite ou absent, que doit-il se passer à l’agence ?', ['Elle reste fermée, l’accueil téléphonique répond', 'Mon fils reçoit', 'Une personne de confiance reçoit', 'Les rendez-vous sont reportés', AUTRE], 2),
+        C('k6', 'Quels jours serez-vous à l’agence ?', ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'], 2),
+        R('k7', 'Souhaitez-vous visiter les locaux vous-même ?', ['Oui', 'Non, mon fils fera une première sélection'], 2)
+      ] },
+    { id: 'journee', title: 'Votre journée et votre façon de travailler',
+      why: 'Personne ne connaît votre métier mieux que vous. Écrivez comme vous parleriez à un nouveau collaborateur : c’est ce qui permettra de construire des outils qui vous ressemblent.',
+      intro: 'Astuce : sur un téléphone, appuyez sur le micro du clavier et parlez, le texte s’écrit tout seul.',
+      qs: [
+        L('i1', 'Racontez une vente de fonds de commerce typique, étape par étape, du premier contact avec le vendeur jusqu’à l’acte. Pensez à : estimation, mandat, annonce, premiers acheteurs, confidentialité, visite, offre, compromis, financement, acte, publication.', 2),
+        L('i6', 'Qu’aimeriez-vous qu’on fasse à votre place ?', 2),
+        L('i7', 'Qu’est-ce que vous ne voulez surtout pas confier à une machine ?', 1),
+        R('i11', 'Que pensez-vous de l’idée que l’ordinateur prépare le travail (réponses, estimations, documents) et que vous validiez avant l’envoi ?', ['J’y suis favorable', 'Favorable, mais je relirai tout au début', 'J’ai des doutes', 'Je préfère garder la main sur tout'], 1),
+        L('i5', 'Qu’est-ce qui vous prend le plus de temps dans une semaine ?', 2),
+        L('i3', 'Comment savez-vous qu’un repreneur est sérieux ?', 2),
+        L('i8', 'Qu’est-ce qui fait capoter une affaire ?', 2),
+        C('i9', 'Comment suiviez-vous vos dossiers ?', ['Un carnet', 'Un tableur (Excel)', 'Un logiciel', 'Mes e-mails', 'De tête', AUTRE], 2),
+        R('i10', 'Combien d’affaires meniez-vous en même temps ?', ['1 à 3', '4 à 10', '11 à 25', 'Plus de 25'], 2),
+        R('i13', 'Comment gériez-vous les avis en ligne (Google, etc.) ?', ['Je ne m’en occupais pas', 'Je répondais aux avis', 'Je demandais des avis à des clients satisfaits'], 2),
+        L('i12', 'Quelle est votre plus grande crainte à propos de l’intelligence artificielle dans votre travail ?', 2)
+      ] },
+    { id: 'fin', title: 'Un dernier mot',
+      why: 'Il y a forcément des choses que nous n’avons pas pensé à demander.',
+      qs: [
+        L('z1', 'Y a-t-il quelque chose d’important que nous n’avons pas demandé ?', 1)
+      ] }
+  ];
+
+  var QINDEX = {};
+  SECTIONS.forEach(function (s) { s.qs.forEach(function (q) { QINDEX[q.id] = q; }); });
+
+  var state = { mode: null, step: 0, last: 0, name: '', zoom: 100, answers: {} };
+  var mainEl = document.getElementById('main');
+  var navEl = document.getElementById('nav');
+  var prevBtn = document.getElementById('prev');
+  var nextBtn = document.getElementById('next');
+  var saveTxt = document.getElementById('savetxt');
+  var saveTimer = null;
+
+  function h(tag, attrs, kids) {
+    var e = document.createElement(tag);
+    if (attrs) {
+      Object.keys(attrs).forEach(function (k) {
+        var v = attrs[k];
+        if (v === false || v == null) return;
+        if (k === 'class') e.className = v;
+        else if (k === 'text') e.textContent = v;
+        else if (k.slice(0, 2) === 'on') e.addEventListener(k.slice(2), v);
+        else e.setAttribute(k, v === true ? '' : v);
+      });
+    }
+    (kids || []).forEach(function (c) { if (c != null) e.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); });
+    return e;
+  }
+
+  /* ---------- stockage : jamais de perte silencieuse ---------- */
+  function testStorage() {
+    try { var k = '__chr_test__'; window.localStorage.setItem(k, '1'); window.localStorage.removeItem(k); return true; } catch (e) { return false; }
+  }
+  function updateSavedLabel() {
+    if (!saveTxt) return;
+    if (!storageOK) { saveTxt.textContent = 'Non enregistré sur ce téléphone'; saveTxt.className = 'saved bad'; return; }
+    saveTxt.className = 'saved';
+    if (lastSaved) {
+      var d = lastSaved, hh = ('0' + d.getHours()).slice(-2), mm = ('0' + d.getMinutes()).slice(-2);
+      saveTxt.textContent = 'Enregistré à ' + hh + ' h ' + mm;
+    } else { saveTxt.textContent = ''; }
+  }
+  function load() {
+    storageOK = testStorage();
+    try {
+      var raw = window.localStorage.getItem(STORE_KEY);
+      if (!raw) return;
+      var d = JSON.parse(raw);
+      if (d && d.v === 2) {
+        state.mode = d.mode || null; state.step = d.step || 0; state.last = d.last || 0; state.name = d.name || '';
+        state.zoom = d.zoom || 100; state.answers = d.answers || {};
+      }
+    } catch (e) { /* stockage indisponible : la page fonctionne sans, avec un avertissement */ }
+  }
+  function writeNow() {
+    clearTimeout(saveTimer);
+    try {
+      window.localStorage.setItem(STORE_KEY, JSON.stringify({ v: 2, mode: state.mode, step: state.step, last: state.last, name: state.name, zoom: state.zoom, answers: state.answers }));
+      storageOK = true; lastSaved = new Date();
+    } catch (e) { storageOK = false; }
+    updateSavedLabel();
+  }
+  function save(immediate) {
+    if (immediate) { writeNow(); return; }
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(writeNow, 150);
+  }
+
+  /* ---------- logique ---------- */
+  function modeOK(q) { return state.mode !== 'court' || q.lv === 1; }
+  function visible(q) { return modeOK(q) && (!q.show || q.show(state.answers)); }
+  function stepIds() {
+    var ids = ['accueil'];
+    SECTIONS.forEach(function (s) { if (s.qs.some(modeOK)) ids.push(s.id); });
+    ids.push('fin-export');
+    return ids;
+  }
+  function isAnswered(q) {
+    var a = state.answers[q.id];
+    if (a == null || a === NSP) return false;
+    if (typeof a === 'object' && !Array.isArray(a)) return Object.keys(a).length > 0;
+    return true;
+  }
+  function handled(q) { return state.answers[q.id] === NSP || isAnswered(q); }
+  function sectionCounts(s) {
+    var qs = s.qs.filter(visible);
+    return { done: qs.filter(handled).length, total: qs.length };
+  }
+  function updateProgress() {
+    var el = document.getElementById('secprog');
+    if (!el) return;
+    var id = stepIds()[state.step];
+    var s = SECTIONS.filter(function (x) { return x.id === id; })[0];
+    if (!s) return;
+    var c = sectionCounts(s);
+    el.textContent = c.done + ' sur ' + c.total + ' questions traitées dans cette partie';
+  }
+  function setAnswer(id, val) {
+    var empty = val == null || val === '' || (Array.isArray(val) && !val.length) || (typeof val === 'object' && !Array.isArray(val) && !Object.keys(val).length);
+    if (empty) delete state.answers[id]; else state.answers[id] = val;
+    save(false); applyVisibility(); updateProgress();
+  }
+  function applyVisibility() {
+    Array.prototype.forEach.call(mainEl.querySelectorAll('[data-qid]'), function (b) {
+      var q = QINDEX[b.getAttribute('data-qid')];
+      b.hidden = !visible(q);
+    });
+  }
+
+  /* ---------- rendu d’une question ---------- */
+  function choiceInput(type, name, id, value, checked, label, onchange) {
+    var inp = h('input', { type: type, name: name, id: id, value: value });
+    inp.checked = !!checked;
+    inp.addEventListener('change', onchange);
+    return h('label', { class: 'choice', for: id }, [inp, h('span', { class: 'mark' }), h('span', { class: 'txt', text: label })]);
+  }
+  function renderQuestion(q) {
+    var block = h('fieldset', { class: 'q', 'data-qid': q.id });
+    block.appendChild(h('legend', { class: 'q-label', text: q.q }));
+    if (q.hint) block.appendChild(h('p', { class: 'hint', text: q.hint }));
+    var cur = state.answers[q.id];
+    var body = h('div', { class: 'q-body' });
+    var i;
+
+    if (q.t === 'radio') {
+      q.o.forEach(function (opt, k) {
+        body.appendChild(choiceInput('radio', q.id, 'q-' + q.id + '-' + k, opt, cur === opt, opt, function () { setAnswer(q.id, opt); }));
+      });
+    } else if (q.t === 'check') {
+      var selected = Array.isArray(cur) ? cur : [];
+      q.o.forEach(function (opt, k) {
+        body.appendChild(choiceInput('checkbox', q.id, 'q-' + q.id + '-' + k, opt, selected.indexOf(opt) >= 0, opt, function () {
+          var vals = [];
+          Array.prototype.forEach.call(body.querySelectorAll('input[type=checkbox]'), function (x) { if (x.checked) vals.push(x.value); });
+          setAnswer(q.id, vals);
+        }));
+      });
+    } else if (q.t === 'text' || q.t === 'month') {
+      var f = h('input', { class: 'field', id: 'q-' + q.id, type: q.t === 'month' ? 'month' : 'text', autocomplete: 'off', 'aria-label': q.q });
+      f.value = typeof cur === 'string' && cur !== NSP ? cur : '';
+      f.addEventListener('input', function () { setAnswer(q.id, f.value.trim() === '' ? '' : f.value); });
+      body.appendChild(f);
+    } else if (q.t === 'long') {
+      var ta = h('textarea', { class: 'field', id: 'q-' + q.id, rows: '5', 'aria-label': q.q });
+      ta.value = typeof cur === 'string' && cur !== NSP ? cur : '';
+      ta.addEventListener('input', function () { setAnswer(q.id, ta.value.trim() === '' ? '' : ta.value); });
+      body.appendChild(ta);
+    } else if (q.t === 'scale') {
+      var sc = h('div', { class: 'scale' });
+      for (i = 1; i <= 5; i++) {
+        (function (n) {
+          var inp = h('input', { type: 'radio', name: q.id, id: 'q-' + q.id + '-' + n, value: String(n) });
+          inp.checked = cur === String(n);
+          inp.addEventListener('change', function () { setAnswer(q.id, String(n)); });
+          sc.appendChild(h('label', { class: 'choice', for: 'q-' + q.id + '-' + n }, [inp, h('span', { class: 'mark' }), h('span', { class: 'num', text: String(n) })]));
+        })(i);
+      }
+      body.appendChild(sc);
+      body.appendChild(h('div', { class: 'scale-cap' }, [h('span', { text: '1 : ' + q.lo }), h('span', { text: '5 : ' + q.hi })]));
+    } else if (q.t === 'numbers') {
+      var nv = (cur && typeof cur === 'object') ? cur : {};
+      q.items.forEach(function (it) {
+        var inp = h('input', { class: 'field', type: 'number', min: '0', inputmode: 'decimal', id: 'q-' + q.id + '-' + it.id, 'aria-label': it.label });
+        inp.value = nv[it.id] != null ? nv[it.id] : '';
+        inp.addEventListener('input', function () {
+          var o = Object.assign({}, state.answers[q.id] || {});
+          if (inp.value === '') delete o[it.id]; else o[it.id] = inp.value;
+          setAnswer(q.id, o);
+        });
+        body.appendChild(h('div', { class: 'numrow' }, [h('label', { for: 'q-' + q.id + '-' + it.id, text: it.label }), inp]));
+      });
+    } else if (q.t === 'matrix' || q.t === 'docs') {
+      var mv = (cur && typeof cur === 'object') ? cur : {};
+      q.items.forEach(function (it) {
+        var sub = h('fieldset', { class: 'q sub' });
+        sub.style.marginTop = '0';
+        sub.appendChild(h('legend', { class: 'sub-l', text: it.label }));
+        var row = h('div', { class: 'q-body row' });
+        q.o.forEach(function (opt, k) {
+          row.appendChild(choiceInput('radio', q.id + '-' + it.id, 'q-' + q.id + '-' + it.id + '-' + k, opt, mv[it.id] === opt, opt, function () {
+            var o = Object.assign({}, state.answers[q.id] || {});
+            o[it.id] = opt; setAnswer(q.id, o);
+          }));
+        });
+        sub.appendChild(row);
+        body.appendChild(sub);
+      });
+    }
+    block.appendChild(body);
+
+    if (q.t !== 'matrix' && q.t !== 'docs') {
+      var nsp = h('button', { type: 'button', class: 'nsp', 'aria-pressed': 'false', text: 'Je ne sais pas, à vérifier' });
+      var setNsp = function (on) {
+        nsp.setAttribute('aria-pressed', on ? 'true' : 'false');
+        block.classList.toggle('is-nsp', on);
+        Array.prototype.forEach.call(body.querySelectorAll('input,textarea'), function (x) { x.disabled = on; });
+      };
+      nsp.addEventListener('click', function () {
+        var on = state.answers[q.id] !== NSP;
+        if (on) { state.answers[q.id] = NSP; } else { delete state.answers[q.id]; }
+        setNsp(on); save(false); applyVisibility(); updateProgress();
+      });
+      block.appendChild(nsp);
+      if (cur === NSP) setNsp(true);
+    }
+    return block;
+  }
+
+  /* ---------- compte rendu ---------- */
+  function monthFr(v) {
+    var m = /^(\d{4})-(\d{2})$/.exec(v || '');
+    if (!m) return v;
+    var names = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+    return names[parseInt(m[2], 10) - 1] + ' ' + m[1];
+  }
+  function formatAnswer(q) {
+    var a = state.answers[q.id];
+    if (a == null) return ['(pas de réponse)'];
+    if (a === NSP) return [NSP_LABEL];
+    if (q.t === 'month') return [monthFr(a)];
+    if (q.t === 'scale') return [a + ' sur 5'];
+    if (Array.isArray(a)) return [a.join(' ; ')];
+    if (typeof a === 'object') {
+      return q.items.filter(function (it) { return a[it.id] != null; }).map(function (it) { return '- ' + it.label + ' : ' + a[it.id]; });
+    }
+    return String(a).split('\n');
+  }
+  function stats() {
+    var asked = 0, given = 0, nsp = 0;
+    SECTIONS.forEach(function (s) { s.qs.filter(visible).forEach(function (q) {
+      asked++;
+      if (state.answers[q.id] === NSP) nsp++; else if (isAnswered(q)) given++;
+    }); });
+    return { asked: asked, given: given, nsp: nsp, empty: asked - given - nsp };
+  }
+  function buildReport(kind) {
+    var now = new Date();
+    var d = now.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+    var st = stats();
+    var out = [];
+    out.push('RÉPONSES AU QUESTIONNAIRE CHR & HOME');
+    out.push('Prénom : ' + (state.name || '(non renseigné)'));
+    out.push('Date : ' + d);
+    out.push('Version : ' + (state.mode === 'court' ? 'courte (l’essentiel)' : 'complète'));
+    out.push('État : ' + (kind === 'final' ? 'terminé' : 'BROUILLON') + ' (' + st.given + ' réponses, ' + st.nsp + ' « je ne sais pas », ' + st.empty + ' sans réponse sur ' + st.asked + ' questions)');
+    out.push('Document confidentiel, à transmettre uniquement à votre fils.');
+    out.push('');
+    var json = { questionnaire: 'chr-home-pere', version: 2, mode: state.mode, prenom: state.name, date: now.toISOString().slice(0, 10), etat: kind === 'final' ? 'termine' : 'brouillon', reponses: {} };
+    SECTIONS.forEach(function (s) {
+      var qs = s.qs.filter(visible);
+      if (!qs.length) return;
+      out.push('=== ' + s.title.toUpperCase() + ' ===');
+      qs.forEach(function (q) {
+        out.push('');
+        out.push('• ' + q.q);
+        formatAnswer(q).forEach(function (line) { out.push('   → ' + line); });
+        if (state.answers[q.id] != null) json.reponses[q.id] = state.answers[q.id];
+      });
+      out.push('');
+    });
+    out.push('--- Données pour l’ordinateur (ne pas modifier) ---');
+    out.push(JSON.stringify(json));
+    return out.join('\n');
+  }
+
+  /* ---------- envoi et restauration ---------- */
+  function fallbackBox(text, statusEl, host) {
+    var ta = h('textarea', { class: 'field out', readonly: true, 'aria-label': 'Texte de vos réponses' });
+    ta.value = text;
+    host.appendChild(ta);
+    ta.focus(); ta.select();
+    var ok = false; try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    statusEl.textContent = ok ? 'Copié. Collez-le maintenant dans un message à votre fils.' : 'Le texte est sélectionné : appuyez longuement dessus, choisissez « Copier », puis collez-le dans un message à votre fils.';
+  }
+  function copyText(text, statusEl, host) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { statusEl.textContent = 'Copié. Collez-le maintenant dans un message à votre fils.'; }, function () { fallbackBox(text, statusEl, host); });
+    } else { fallbackBox(text, statusEl, host); }
+  }
+  function shareReport(kind, statusEl, host) {
+    writeNow();
+    var text = buildReport(kind);
+    if (navigator.share) {
+      statusEl.textContent = '';
+      navigator.share({ title: 'Questionnaire CHR & HOME', text: text }).then(function () {
+        statusEl.textContent = 'Partage terminé. Vérifiez que le message est bien parti dans la conversation avec votre fils.';
+      }, function (err) {
+        if (err && err.name === 'AbortError') { statusEl.textContent = 'Envoi annulé : rien n’est parti.'; return; }
+        copyText(text, statusEl, host);
+      });
+    } else {
+      copyText(text, statusEl, host);
+    }
+  }
+  function sanitizeAnswer(q, v) {
+    var i, o, k;
+    if (v === NSP) return NSP;
+    if (q.t === 'check') return Array.isArray(v) ? v.filter(function (x) { return typeof x === 'string'; }).map(function (x) { return x.slice(0, 300); }) : undefined;
+    if (q.t === 'numbers' || q.t === 'matrix' || q.t === 'docs') {
+      if (!v || typeof v !== 'object' || Array.isArray(v)) return undefined;
+      o = {};
+      q.items.forEach(function (it) { if (typeof v[it.id] === 'string' || typeof v[it.id] === 'number') o[it.id] = String(v[it.id]).slice(0, 300); });
+      return Object.keys(o).length ? o : undefined;
+    }
+    return typeof v === 'string' ? v.slice(0, 20000) : undefined;
+  }
+  function parseReport(text) {
+    var lines = String(text || '').split('\n');
+    for (var i = lines.length - 1; i >= 0; i--) {
+      var ln = lines[i].trim();
+      if (ln.charAt(0) === '{' && ln.indexOf('"chr-home-pere"') > 0) {
+        try { var o = JSON.parse(ln); if (o && o.questionnaire === 'chr-home-pere' && o.reponses && typeof o.reponses === 'object') return o; } catch (e) { return null; }
+      }
+    }
+    return null;
+  }
+  function restoreFrom(text) {
+    var o = parseReport(text);
+    if (!o) return -1;
+    var answers = {}, n = 0;
+    Object.keys(o.reponses).forEach(function (id) {
+      var q = QINDEX[id]; if (!q) return;
+      var v = sanitizeAnswer(q, o.reponses[id]);
+      if (v !== undefined) { answers[id] = v; n++; }
+    });
+    state.answers = answers;
+    state.mode = o.mode === 'court' ? 'court' : 'complet';
+    state.name = typeof o.prenom === 'string' ? o.prenom.slice(0, 40) : '';
+    state.step = 0; state.last = 1;
+    writeNow();
+    return n;
+  }
+
+  /* ---------- pages ---------- */
+  function heading(tag, text, cls) { return h(tag, { text: text, tabindex: '-1', id: 'page-title', class: cls }); }
+  function goto(i) {
+    state.step = Math.max(0, Math.min(i, stepIds().length - 1));
+    if (state.step > 0) state.last = state.step;
+    save(true); render(); window.scrollTo(0, 0);
+    var t = document.getElementById('page-title'); if (t) t.focus({ preventScroll: true });
+  }
+  function setMode(m) { state.mode = m; var ids = stepIds(); state.step = Math.min(state.step, ids.length - 1); save(true); }
+
+  function renderWelcome() {
+    var wrap = h('div');
+    wrap.appendChild(heading('h1', 'Préparons ensemble la nouvelle agence', 'hero'));
+    wrap.appendChild(h('p', { class: 'lead', text: 'Ce questionnaire s’adresse à vous, futur dirigeant et responsable de l’agence. Vous avez déjà créé des agences : ce que vous savez sur les démarches, les délais, les coûts et les pièges vaut plus que n’importe quel guide. Vos réponses permettent de construire CHR & HOME sur votre expérience réelle plutôt que sur des suppositions.' }));
+    var rules = h('ul', { class: 'rules' }, [
+      h('li', { text: 'Il n’y a pas de mauvaise réponse. Si vous ne savez pas, appuyez sur « Je ne sais pas, à vérifier » : vous en parlerez avec votre fils.' }),
+      h('li', { text: 'Vous pouvez vous arrêter quand vous voulez et reprendre plus tard : tout est enregistré sur ce téléphone, et l’heure d’enregistrement s’affiche en haut.' }),
+      h('li', { text: 'À tout moment, le bouton « Envoyer ce que j’ai déjà fait » transmet vos réponses à votre fils. Même si vous vous arrêtez à moitié, il reçoit déjà l’essentiel.' }),
+      h('li', { text: 'Reprenez toujours avec le même lien et le même navigateur. Évitez la navigation privée.' }),
+      h('li', { text: 'Pour écrire plus vite, utilisez le micro du clavier de votre téléphone et parlez.' }),
+      h('li', { text: 'N’écrivez ici aucun mot de passe, aucun numéro de carte bancaire et aucune copie de pièce d’identité.' })
+    ]);
+    wrap.appendChild(h('div', { class: 'panel' }, [h('b', { text: 'Avant de commencer' }), rules]));
+    var nameWrap = h('div', { class: 'panel' });
+    nameWrap.appendChild(h('label', { for: 'q-name', class: 'q-label lbl-block', text: 'Votre prénom (facultatif)' }));
+    var nm = h('input', { class: 'field', id: 'q-name', type: 'text', autocomplete: 'given-name' });
+    nm.value = state.name;
+    nm.addEventListener('input', function () { state.name = nm.value; save(false); });
+    nameWrap.appendChild(nm);
+    wrap.appendChild(nameWrap);
+
+    var started = !!state.mode && state.last > 0;
+    wrap.appendChild(h('h2', { class: 'h-sub', text: started ? 'Continuer, ou changer de version' : 'Quelle version choisissez-vous ?' }));
+    var big = h('div', { class: 'bigchoice' });
+    if (started) {
+      big.appendChild(h('button', { type: 'button', class: 'btn', onclick: function () { goto(state.last); } },
+        [h('span', { text: 'Continuer là où j’en étais' }), h('small', { text: 'Vos réponses précédentes sont conservées' })]));
+    }
+    big.appendChild(h('button', { type: 'button', class: started ? 'btn alt' : 'btn', onclick: function () { setMode('court'); goto(started ? state.last : 1); } },
+      [h('span', { text: 'Version courte' }), h('small', { text: 'L’essentiel : comptez environ 40 minutes, en une ou plusieurs fois' })]));
+    big.appendChild(h('button', { type: 'button', class: 'btn alt', onclick: function () { setMode('complet'); goto(started ? state.last : 1); } },
+      [h('span', { text: 'Version complète' }), h('small', { text: 'Tous les détails : comptez 1 h 45 à 2 h, en plusieurs fois' })]));
+    wrap.appendChild(big);
+
+    if (started) {
+      var st = h('div', { class: 'status', 'aria-live': 'polite' });
+      var host = h('div');
+      var send = h('button', { type: 'button', class: 'btn alt', text: 'Envoyer ce que j’ai déjà fait à mon fils' });
+      send.addEventListener('click', function () { shareReport('brouillon', st, host); });
+      wrap.appendChild(h('div', { class: 'nav-in actions' }, [send]));
+      wrap.appendChild(st); wrap.appendChild(host);
+    }
+
+    var det = h('details', { class: 'restore' });
+    det.appendChild(h('summary', { text: 'J’ai perdu mes réponses : les restaurer' }));
+    det.appendChild(h('p', { class: 'hint', text: 'Collez ici le dernier message que vous avez envoyé à votre fils (ou que votre fils vous a renvoyé). Vos réponses reviendront.' }));
+    var rta = h('textarea', { class: 'field', id: 'restore-text', 'aria-label': 'Message à restaurer' });
+    var rst = h('div', { class: 'status', 'aria-live': 'polite' });
+    var rbtn = h('button', { type: 'button', class: 'btn alt', text: 'Restaurer mes réponses' });
+    rbtn.addEventListener('click', function () {
+      var n = restoreFrom(rta.value);
+      if (n < 0) { rst.textContent = 'Je n’ai pas trouvé de réponses dans ce texte. Collez le message en entier, jusqu’à la dernière ligne.'; return; }
+      goto(1);
+    });
+    det.appendChild(rta); det.appendChild(h('div', { class: 'nav-in actions' }, [rbtn])); det.appendChild(rst);
+    wrap.appendChild(det);
+    return wrap;
+  }
+
+  function pausePanel() {
+    var st = h('div', { class: 'status', 'aria-live': 'polite' });
+    var host = h('div');
+    var btn = h('button', { type: 'button', class: 'btn alt', text: 'Envoyer ce que j’ai déjà fait' });
+    btn.addEventListener('click', function () { shareReport('brouillon', st, host); });
+    return h('div', { class: 'panel pause' }, [
+      h('b', { text: 'Besoin de faire une pause ?' }),
+      h('p', { text: 'Vous pouvez envoyer dès maintenant ce que vous avez rempli à votre fils. Vous reprendrez ici quand vous voulez.' }),
+      btn, st, host
+    ]);
+  }
+
+  function renderSection(s) {
+    var wrap = h('div');
+    if (!storageOK) wrap.appendChild(h('div', { class: 'banner', text: 'Attention : ce navigateur n’enregistre pas vos réponses (navigation privée ?). Envoyez régulièrement ce que vous avez fait avec le bouton en bas de page, avant de fermer.' }));
+    wrap.appendChild(heading('h1', s.title));
+    wrap.appendChild(h('p', { class: 'secprog', id: 'secprog' }));
+    wrap.appendChild(h('div', { class: 'why' }, [h('b', { text: 'Pourquoi ces questions' }), s.why]));
+    if (s.intro) wrap.appendChild(h('p', { class: 'lead', text: s.intro }));
+    s.qs.forEach(function (q) { if (modeOK(q)) wrap.appendChild(renderQuestion(q)); });
+    wrap.appendChild(pausePanel());
+    return wrap;
+  }
+
+  function renderEnd() {
+    var wrap = h('div');
+    if (!storageOK) wrap.appendChild(h('div', { class: 'banner', text: 'Attention : ce navigateur n’enregistre pas vos réponses. Envoyez-les maintenant, avant de fermer la page.' }));
+    wrap.appendChild(heading('h1', 'C’est terminé, merci'));
+    var st = stats();
+    wrap.appendChild(h('p', { class: 'lead', text: 'Il reste une dernière étape : envoyer vos réponses à votre fils.' }));
+    wrap.appendChild(h('div', { class: 'stat' }, [
+      h('span', { class: 'chip', text: st.given + ' réponses données' }),
+      h('span', { class: 'chip', text: st.nsp + ' « je ne sais pas »' }),
+      h('span', { class: 'chip', text: st.empty + ' laissées vides' })
+    ]));
+    var report = buildReport('final');
+    var ta = h('textarea', { class: 'field out', id: 'export-text', readonly: true, 'aria-label': 'Texte de vos réponses' });
+    ta.value = report;
+    var status = h('div', { class: 'status', 'aria-live': 'polite' });
+    var host = h('div');
+    var actions = h('div', { class: 'nav-in actions' });
+    var share = h('button', { type: 'button', class: 'btn', text: 'Envoyer à mon fils' });
+    share.addEventListener('click', function () { shareReport('final', status, host); });
+    actions.appendChild(share);
+    var copy = h('button', { type: 'button', class: 'btn alt', text: 'Copier mes réponses' });
+    copy.addEventListener('click', function () {
+      writeNow(); ta.value = buildReport('final');
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(ta.value).then(function () { status.textContent = 'Copié. Collez-le maintenant dans un message à votre fils.'; }, function () { ta.focus(); ta.select(); status.textContent = 'Le texte est sélectionné : appuyez longuement dessus, choisissez « Copier », puis collez-le dans un message.'; });
+      } else { ta.focus(); ta.select(); var ok = false; try { ok = document.execCommand('copy'); } catch (e) { ok = false; } status.textContent = ok ? 'Copié. Collez-le maintenant dans un message à votre fils.' : 'Le texte est sélectionné : appuyez longuement dessus, choisissez « Copier », puis collez-le dans un message.'; }
+    });
+    actions.appendChild(copy);
+    if (typeof window.claude === 'undefined') {
+      var dl = h('button', { type: 'button', class: 'btn alt', text: 'Enregistrer en fichier' });
+      dl.addEventListener('click', function () {
+        try {
+          var blob = new Blob([ta.value], { type: 'text/plain;charset=utf-8' });
+          var url = URL.createObjectURL(blob);
+          var a = h('a', { href: url, download: 'reponses-questionnaire-chr-home.txt' });
+          document.body.appendChild(a); a.click(); document.body.removeChild(a);
+          setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+          status.textContent = 'Fichier enregistré dans vos téléchargements.';
+        } catch (e) { status.textContent = 'L’enregistrement a échoué : utilisez « Envoyer à mon fils ».'; }
+      });
+      actions.appendChild(dl);
+    }
+    wrap.appendChild(actions);
+    wrap.appendChild(status);
+    wrap.appendChild(host);
+    wrap.appendChild(h('p', { class: 'hint', text: 'Le bouton « Envoyer à mon fils » ouvre la liste de vos applications de message : choisissez WhatsApp (ou vos messages), puis la conversation avec votre fils.' }));
+    wrap.appendChild(h('div', { class: 'panel' }, [ta]));
+
+    var ids = stepIds();
+    wrap.appendChild(h('p', { class: 'lead', text: 'Un oubli ? Revenez à une partie :' }));
+    var jump = h('div', { class: 'jump' });
+    SECTIONS.forEach(function (s) {
+      if (!s.qs.some(modeOK)) return;
+      var c = sectionCounts(s);
+      jump.appendChild(h('button', { type: 'button', text: s.title + ' (' + c.done + '/' + c.total + ')', onclick: function () { goto(ids.indexOf(s.id)); } }));
+    });
+    wrap.appendChild(jump);
+    return wrap;
+  }
+
+  function render() {
+    var ids = stepIds();
+    if (state.step > ids.length - 1) state.step = ids.length - 1;
+    var id = ids[state.step];
+    mainEl.textContent = '';
+    var page;
+    if (id === 'accueil') page = renderWelcome();
+    else if (id === 'fin-export') page = renderEnd();
+    else page = renderSection(SECTIONS.filter(function (s) { return s.id === id; })[0]);
+    mainEl.appendChild(page);
+    applyVisibility(); updateProgress();
+
+    var pct = ids.length > 1 ? Math.round(state.step / (ids.length - 1) * 100) : 0;
+    document.getElementById('barfill').style.width = pct + '%';
+    document.querySelector('.bar').setAttribute('aria-valuenow', String(pct));
+    document.getElementById('steptxt').textContent = id === 'accueil' ? 'Accueil' : (id === 'fin-export' ? 'Dernière étape' : 'Partie ' + state.step + ' sur ' + (ids.length - 2));
+    document.getElementById('modetxt').textContent = state.mode === 'court' ? 'Version courte' : (state.mode === 'complet' ? 'Version complète' : '');
+    updateSavedLabel();
+
+    navEl.hidden = id === 'accueil';
+    prevBtn.disabled = state.step === 0;
+    nextBtn.textContent = state.step >= ids.length - 2 ? (id === 'fin-export' ? 'Terminé' : 'Voir le résultat →') : 'Suivant →';
+    nextBtn.disabled = id === 'fin-export';
+    document.documentElement.style.fontSize = state.zoom + '%';
+    Array.prototype.forEach.call(document.querySelectorAll('.zbtn'), function (b) { b.setAttribute('aria-pressed', String(parseInt(b.getAttribute('data-z'), 10) === state.zoom)); });
+  }
+
+  prevBtn.addEventListener('click', function () { goto(state.step - 1); });
+  nextBtn.addEventListener('click', function () { goto(state.step + 1); });
+  Array.prototype.forEach.call(document.querySelectorAll('.zbtn'), function (b) {
+    b.addEventListener('click', function () { state.zoom = parseInt(b.getAttribute('data-z'), 10); save(true); render(); });
+  });
+
+  /* enregistrement immédiat dès que la page passe en arrière-plan ou se ferme */
+  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden') writeNow(); });
+  window.addEventListener('pagehide', writeNow);
+  document.addEventListener('focusout', function () { if (saveTimer) writeNow(); });
+
+  function showFatal(err) {
+    var msg = String(err && err.message ? err.message : err);
+    mainEl.textContent = '';
+    mainEl.appendChild(h('div', { class: 'fatal' }, [
+      h('h2', { text: 'Un problème est survenu' }),
+      h('p', { text: 'La page n’a pas pu s’afficher correctement. Montrez ce message à votre fils, il saura le corriger.' }),
+      h('code', { text: msg })
+    ]));
+    navEl.hidden = true;
+  }
+  window.addEventListener('error', function (e) { showFatal(e.error || e.message); });
+
+  try {
+    load();
+    render();
+  } catch (err) {
+    showFatal(err);
+  }
+})();
+</script>
+</body></html>
